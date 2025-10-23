@@ -24,21 +24,21 @@
   --t-3: hsl(var(--shade-hue), calc((0 + (var(--on, 0) * 20)) * 1%), calc((10 + (var(--on, 0) * 20)) * 1%));
 }
 body {
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #121921;
+  padding: 20px;
 }
 
 .dividing {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  gap: 50px;
+  gap: 24px;
   min-height: 100vh;
-  
-
+  padding: 20px 0;
 }
 
 /* Hide only the small radio inputs used for the lamp toggle (keep form fields visible) */
@@ -55,10 +55,10 @@ body {
   border-width: 0;
 }
 .lamp {
-  display: none;
-  height: 40vmin;
+  display: block;
+  width: min(320px, 60vmin);
+  height: auto;
   overflow: visible !important;
-  /* ensure lamp sits above decorative elements */
   position: relative;
   z-index: 50;
 }
@@ -104,36 +104,28 @@ body {
   fill: var(--t-3);
 }
 
-  * {
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
-  }
+}
 
-  body {
-    min-width: fit-content;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
-  }
-  .card {
-  width: 450px;
+.card {
+  width: 100%;
+  max-width: 460px;
   height: auto;
   min-height: 250px;
-  background: rgba( 255, 255, 255, 0.15 );
-  box-shadow: 0 8px 32px 0  var(--t-3);
-  backdrop-filter: blur( 18px );
-  -webkit-backdrop-filter: blur( 18px );
-  border: 1px solid rgba( 255, 255, 255, 0.18 );
-  border-radius: 1rem;
-  padding: 1.5rem;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 var(--t-3);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 1.25rem;
   z-index: 10;
   color: whitesmoke;
   position: relative;
-
 }
 
 
@@ -175,11 +167,10 @@ body {
   background-color: #111;
   border-radius: 50px;
   padding: 4px;
-  margin-bottom: 20px;
-  width: 60%;
-    
+  margin-bottom: 16px;
+  width: 100%;
   justify-content: space-between;
-  }
+}
 
   .color{
     position: absolute;
@@ -211,11 +202,14 @@ body {
 
   .name{
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 
   .under-name{
-    width: 48%;
-    display: inline-block;
+    width: 100%;
+    display: block;
   }
 
   /* ==== Input Fields ==== */
@@ -341,6 +335,37 @@ body {
   -webkit-animation: move 25s infinite alternate;
           animation: move 25s infinite alternate;
   transition: 1s cubic-bezier(0.07, 0.8, 0.16, 1);
+}
+
+/* Media queries for larger screens */
+@media (min-width: 700px) {
+  .dividing {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+  }
+
+  .lamp {
+    width: min(420px, 40vmin);
+  }
+
+  .card {
+    max-width: 520px;
+    padding: 1.5rem;
+  }
+
+  .name{
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .under-name{ width: 50%; }
+}
+
+@media (min-width: 1000px) {
+  .dividing { gap: 80px; }
+  .blob { width: 600px; height: 600px; }
 }
 
 .blob:hover {
