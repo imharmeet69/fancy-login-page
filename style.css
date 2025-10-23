@@ -1,0 +1,405 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
+:root {
+  --cord: hsl(210, 0%, calc((40 + (var(--on, 0) * 50)) * 1%));
+  --opening: hsl(50, calc((10 + (var(--on, 0) * 80)) * 1%), calc((20 + (var(--on, 0) * 70)) * 1%));
+  --feature: #0a0a0a;
+  --accent: 210;
+  --tongue: #e06952;
+  --base-top: hsl(var(--accent), 0%, calc((40 + (var(--on, 0) * 40)) * 1%));
+  --base-side: hsl(var(--accent), 0%, calc((20 + (var(--on, 0) * 40)) * 1%));
+  --post: hsl(var(--accent), 0%, calc((20 + (var(--on, 0) * 40)) * 1%));
+  --b-1: hsla(45, calc((0 + (var(--on, 0) * 0)) * 1%), calc((50 + (var(--on, 0) * 50)) * 1%), 0.85);
+  --b-2: hsla(45, calc((0 + (var(--on, 0) * 0)) * 1%), calc((20 + (var(--on, 0) * 30)) * 1%), 0.25);
+  --b-3: hsla(45, calc((0 + (var(--on, 0) * 0)) * 1%), calc((20 + (var(--on, 0) * 30)) * 1%), 0.5);
+  --b-4: hsla(45, calc((0 + (var(--on, 0) * 0)) * 1%), calc((20 + (var(--on, 0) * 30)) * 1%), 0.25);
+  --l-1: hsla(45, calc((0 + (var(--on, 0) * 20)) * 1%), calc((50 + (var(--on, 0) * 50)) * 1%), 0.85);
+  --l-2: hsla(45, calc((0 + (var(--on, 0) * 20)) * 1%), calc((50 + (var(--on, 0) * 50)) * 1%), 0.85);
+  --shade-hue: 320;
+  --t-1: hsl(var(--shade-hue), calc((0 + (var(--on, 0) * 20)) * 1%), calc((30 + (var(--on, 0) * 60)) * 1%));
+  --t-2: hsl(var(--shade-hue), calc((0 + (var(--on, 0) * 20)) * 1%), calc((20 + (var(--on, 0) * 35)) * 1%));
+  --t-3: hsl(var(--shade-hue), calc((0 + (var(--on, 0) * 20)) * 1%), calc((10 + (var(--on, 0) * 20)) * 1%));
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #121921;
+  padding: 20px;
+}
+
+.dividing {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  min-height: 100vh;
+  padding: 20px 0;
+}
+
+/* Hide only the small radio inputs used for the lamp toggle (keep form fields visible) */
+.dividing form > input[type="radio"],
+.dividing form > label {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+.lamp {
+  display: block;
+  width: min(320px, 60vmin);
+  height: auto;
+  overflow: visible !important;
+  position: relative;
+  z-index: 50;
+}
+.cord {
+  stroke: var(--cord);
+}
+.cord--rig {
+  display: none;
+}
+.lamp__tongue {
+  fill: var(--tongue);
+}
+.lamp__hit {
+  cursor: pointer;
+  opacity: 0;
+}
+.lamp__feature {
+  fill: var(--feature);
+}
+.lamp__stroke {
+  stroke: var(--feature);
+}
+.lamp__mouth,
+.lamp__light {
+    opacity: var(--on, 0);
+}
+.shade__opening {
+  fill: var(--opening);
+}
+.shade__opening-shade {
+  opacity: calc(1 - var(--on, 0));
+}
+.post__body {
+  fill: var(--post);
+}
+.base__top {
+  fill: var(--base-top);
+}
+.base__side {
+  fill: var(--base-side);
+}
+.top__body {
+  fill: var(--t-3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.card {
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  min-height: 250px;
+  background: rgba(255, 255, 255, 0.12);
+  box-shadow: 0 8px 32px 0 var(--t-3);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  padding: 1.25rem;
+  z-index: 10;
+  color: whitesmoke;
+  position: relative;
+}
+
+
+  /* ==== Form Card ==== */
+ 
+
+  .card span {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    cursor: pointer;
+  }
+
+  /* color swatch in settings */
+  .settings {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  #colorPicker.color {
+    appearance: none;
+    -webkit-appearance: none;
+    border: none;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+  }
+
+  /* hide default color input swatch on some browsers but keep functionality */
+  #colorPicker::-webkit-color-swatch-wrapper { padding: 0; }
+  #colorPicker::-webkit-color-swatch { border: none; border-radius: 50%; }
+  /* ==== Top Buttons ==== */
+  .form-toggle {
+  display: flex;
+  background-color: #111;
+  border-radius: 50px;
+  padding: 4px;
+  margin-bottom: 16px;
+  width: 100%;
+  justify-content: space-between;
+}
+
+  .color{
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    margin-bottom: 10px;
+  }
+
+  .form-toggle button {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #666;
+  font-size: 15px;
+  padding: 10px 0;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  }
+
+  .form-toggle button.active {
+  background-color: #1e1e1e;
+  color: #fff;
+  }
+
+  .card h3{
+    margin-bottom: 20px;
+  }
+
+  .name{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .under-name{
+    width: 100%;
+    display: block;
+  }
+
+  /* ==== Input Fields ==== */
+  .form-group {
+  margin-bottom: 15px;
+  }
+
+  .form-group input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 10px;
+  border: 1px solid #333;
+  background-color: #141414;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.3s;
+  }
+
+  .form-group input:focus {
+  border-color: #555;
+  }
+
+  /* use inline SVG data URI for a transparent email icon (no white box) */
+  .email{
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23bdbdbd' d='M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5L4 8V6l8 5 8-5v2z'/></svg>");
+      background-repeat: no-repeat;
+      background-position: 12px center;
+      background-size: 24px;
+      outline: none;
+    }
+
+  .email::placeholder{
+    padding-left: 36px;
+  }
+
+  .phone{
+    background-image: url("images/flag.png");
+      background-repeat: no-repeat;
+      background-position: 12px center;
+      background-size: 24px;
+      outline: none;
+  }
+
+  .phone::placeholder{
+    padding-left: 36px;
+  }
+
+  /* ==== Create Account Button ==== */
+  .submit-btn {
+  width: 100%;
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 12px;
+  font-weight: 600;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-top: 10px;
+  }
+
+.submit-btn:hover {
+  background: #ddd;
+  }
+
+  /* ==== Social Login ==== */
+.divider {
+  text-align: center;
+  color: #888;
+  font-size: 13px;
+  margin: 15px 0;
+  }
+
+.social-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  }
+
+.social-buttons button {
+  flex: 1;
+  background: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: 0.3s;
+  }
+
+  .social-buttons button:hover {
+  background: #2a2a2a;
+  }
+
+  .footer-text {
+  text-align: center;
+  font-size: 12px;
+  color: rgb(196, 190, 190);
+  margin-top: 15px;
+  }
+
+  .footer-text a {
+  color: #9f1aff;
+  text-decoration: none;
+  }
+
+
+.blob {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(
+    180deg,
+    rgba(47, 184, 255,0.42) 31.77%,
+    #5c9df1 100%
+  );
+  mix-blend-mode: color-dodge;
+  -webkit-animation: move 25s infinite alternate;
+          animation: move 25s infinite alternate;
+  transition: 1s cubic-bezier(0.07, 0.8, 0.16, 1);
+}
+
+/* Media queries for larger screens */
+@media (min-width: 700px) {
+  .dividing {
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+  }
+
+  .lamp {
+    width: min(420px, 40vmin);
+  }
+
+  .card {
+    max-width: 520px;
+    padding: 1.5rem;
+  }
+
+  .name{
+    flex-direction: row;
+    gap: 12px;
+  }
+
+  .under-name{ width: 50%; }
+}
+
+@media (min-width: 1000px) {
+  .dividing { gap: 80px; }
+  .blob { width: 600px; height: 600px; }
+}
+
+.blob:hover {
+  width: 500px;
+  height: 500px;
+  -webkit-filter: blur(30px);
+          filter: blur(30px);
+  box-shadow:
+    inset 0 0 0 5px rgba(255,255,255, 0.6),
+    inset 100px 100px 0 0px #fa709a,
+    inset 200px 200px 0 0px #784ba8,
+    inset 300px 300px 0 0px #2b86c5;
+}
+
+@-webkit-keyframes move {
+  from {
+    transform: translate(-100px, -50px) rotate(-90deg);
+    border-radius: 24% 76% 35% 65% / 27% 36% 64% 73%;
+  }
+
+  to {
+    transform: translate(500px, 100px) rotate(-10deg);
+    border-radius: 76% 24% 33% 67% / 68% 55% 45% 32%;
+  }
+}
+
+@keyframes move {
+  from {
+    transform: translate(-100px, -50px) rotate(-90deg);
+    border-radius: 24% 76% 35% 65% / 27% 36% 64% 73%;
+  }
+
+  to {
+    transform: translate(500px, 100px) rotate(-10deg);
+    border-radius: 76% 24% 33% 67% / 68% 55% 45% 32%;
+  }
+}
