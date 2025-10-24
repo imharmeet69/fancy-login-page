@@ -9,6 +9,8 @@ registerPlugin(MorphSVGPlugin);
 const AUDIO = {
   CLICK: new Audio('https://assets.codepen.io/605876/click.mp3') };
 
+  
+
 const ON = document.querySelector('#on');
 const OFF = document.querySelector('#off');
     const signupBtn = document.getElementById('signupBtn');
@@ -17,6 +19,14 @@ const OFF = document.querySelector('#off');
     const submitBtn = document.querySelector('.submit-btn');
     const blob = document.querySelector('.blob');
     const card = document.querySelector('.card');
+
+    card.style.opacity = "0";
+    blob.style.opacity = "0";
+    card.style.pointerEvents = "none";
+    blob.style.pointerEvents = "none";
+    blob.classList.remove('blob');
+    card.classList.remove('card');
+
 
     signinBtn.addEventListener('click', () => {
       signupBtn.classList.remove('active');
@@ -57,6 +67,7 @@ const STATE = {
   ON: false };
 
 
+
 gsap.set(['.cords', HIT], {
   x: -10 });
 
@@ -71,8 +82,23 @@ const CORD_TL = timeline({
   paused: true,
   onStart: () => {
     STATE.ON = !STATE.ON;
-    card.style.display = STATE.ON ? 'block' : 'none';
-    blob.style.display = STATE.ON ? 'block' : 'none';
+    card.style.opacity = STATE.ON ? 1 : 0;
+    blob.style.opacity = STATE.ON ? 1 : 0;
+
+    if(STATE.ON) {
+      card.style.pointerEvents = 'auto';
+      blob.style.pointerEvents = 'auto';
+      card.style.display = 'block';
+      blob.style.display = 'block';
+      blob.classList.add('blob');
+      card.classList.add('card');
+
+    } else {
+      card.style.pointerEvents = 'none';
+      blob.style.pointerEvents = 'none';
+      card.classList.remove('card');
+      blob.classList.remove('blob');
+    }
 
     set(document.documentElement, { '--on': STATE.ON ? 1 : 0 });
     set(document.documentElement, { '--shade-hue': gsap.utils.random(0, 359) });
